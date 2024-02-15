@@ -4,7 +4,13 @@
 \alias{Grib2ANetCDF}
 \title{Transforma archivos .grib2 a .nc}
 \usage{
-Grib2ANetCDF(ruta_in, ruta_out, parallel = FALSE, ncores = detectCores() - 1)
+Grib2ANetCDF(
+  ruta_in,
+  ruta_out,
+  parallel = FALSE,
+  ncores = detectCores() - 1,
+  verbose = TRUE
+)
 }
 \arguments{
 \item{ruta_in}{Ruta del archivo de entrada \code{.grib2} o un vector de rutas si se ejecuta en paralelo.}

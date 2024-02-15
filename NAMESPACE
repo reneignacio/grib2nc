@@ -3,7 +3,6 @@
 export(Grib2ANetCDF)
 export(convertirRutaWindowsAWSL)
 export(extraerBZ2)
-export(procesarDirectorios)
 import(R.utils)
 import(doParallel)
 import(doSNOW)
