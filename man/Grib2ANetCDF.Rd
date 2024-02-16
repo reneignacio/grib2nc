@@ -2,31 +2,51 @@
 % Please edit documentation in R/Grib2ANetCDF.R
 \name{Grib2ANetCDF}
 \alias{Grib2ANetCDF}
-\title{Transforma archivos .grib2 a .nc}
+\title{Convertir archivos .grib2 a .nc}
 \usage{
-Grib2ANetCDF(ruta_in, ruta_out, parallel = FALSE, ncores = detectCores() - 1)
+Grib2ANetCDF(
+  ruta_in,
+  ruta_out,
+  parallel = FALSE,
+  ncores = detectCores() - 3,
+  verbose = TRUE
+)
 }
 \arguments{
-\item{ruta_in}{Ruta del archivo de entrada \code{.grib2} o un vector de rutas si se ejecuta en paralelo.}
+\item{ruta_in}{Vector de caracteres con las rutas de los archivos de entrada .grib2.}
 
-\item{ruta_out}{Ruta del archivo de salida \code{.nc} o un vector de rutas de salida si se ejecuta en paralelo.}
+\item{ruta_out}{Vector de caracteres con las rutas de destino para los archivos .nc.}
 
-\item{parallel}{Lógico que indica si se debe ejecutar en paralelo (TRUE) o secuencialmente (FALSE).}
+\item{parallel}{Lógico, indica si la conversión debe realizarse en paralelo. Por defecto es \code{FALSE}.}
 
-\item{ncores}{Número de núcleos a utilizar para la ejecución paralela, solo relevante si parallel = TRUE.}
+\item{ncores}{Entero, número de núcleos a utilizar para la conversión en paralelo. Solo aplica si \code{parallel} es \code{TRUE}. Por defecto, usa todos los núcleos disponibles menos uno.}
+
+\item{verbose}{Lógico, indica si la función debe imprimir mensajes sobre el progreso de la conversión. Por defecto es \code{TRUE}.}
 }
 \value{
-No devuelve un valor explícitamente, pero ejecuta un comando en el
-sistema que transforma el archivo y lo guarda en la ubicación especificada.
+La función no retorna un objeto. Los archivos .nc son escritos en las rutas especificadas
+por \code{ruta_out}.
 }
 \description{
-Transforma archivos .grib2 a .nc
+Esta función convierte archivos de formato .grib2 a formato .nc (NetCDF) utilizando
+una llamada al sistema para ejecutar un script de bash en WSL. La función puede
+operar en modo secuencial o paralelo.
 }
 \details{
-Esta función requiere que el Subsistema de Windows para Linux (WSL) esté instalado
-y configurado correctamente en el sistema, y que el script de shell \code{transform_0125.sh}
-esté disponible en la ruta especificada dentro de WSL.
+Para el funcionamiento en modo paralelo, esta función depende del paquete \code{doSNOW} y
+configura un clúster SOCK para la ejecución paralela de las conversiones. La conversión
+de rutas de Windows a WSL se realiza mediante la función \code{convertirRutaWindowsAWSL},
+que debe estar definida previamente o ser parte del mismo paquete.
+
+La barra de progreso y el cálculo del tiempo estimado se añaden para mejorar la
+interacción del usuario con la función, especialmente útil para conversiones de
+larga duración.
 }
 \examples{
-Grib2ANetCDF("C:/path/to/input/file.grib2", "C:/path/to/output/file.nc")
+\dontrun{
+ruta_in <- c("/path/to/input/file1.grib2", "/path/to/input/file2.grib2")
+ruta_out <- c("/path/to/output/file1.nc", "/path/to/output/file2.nc")
+Grib2ANetCDF(ruta_in, ruta_out, parallel = TRUE, verbose = TRUE)
+}
+
 }
