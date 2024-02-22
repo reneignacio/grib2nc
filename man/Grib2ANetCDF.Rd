@@ -7,6 +7,7 @@
 Grib2ANetCDF(
   ruta_in,
   ruta_out,
+  ruta_script,
   parallel = FALSE,
   ncores = detectCores() - 3,
   verbose = TRUE
@@ -46,7 +47,8 @@ larga duración.
 \dontrun{
 ruta_in <- c("/path/to/input/file1.grib2", "/path/to/input/file2.grib2")
 ruta_out <- c("/path/to/output/file1.nc", "/path/to/output/file2.nc")
-Grib2ANetCDF(ruta_in, ruta_out, parallel = TRUE, verbose = TRUE)
+ruta_script_wsl <- c("/home/inia/ICON/triangular_a_lat_lon/0125/transform_0125.sh")
+Grib2ANetCDF(ruta_in, ruta_out,ruta_script_wsl, parallel = TRUE, verbose = TRUE)
 }
 
 }

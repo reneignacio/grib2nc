@@ -28,7 +28,8 @@
 #' \dontrun{
 #' ruta_in <- c("/path/to/input/file1.grib2", "/path/to/input/file2.grib2")
 #' ruta_out <- c("/path/to/output/file1.nc", "/path/to/output/file2.nc")
-#' Grib2ANetCDF(ruta_in, ruta_out, parallel = TRUE, verbose = TRUE)
+#' ruta_script_wsl <- c("/home/inia/ICON/triangular_a_lat_lon/0125/transform_0125.sh")
+#' Grib2ANetCDF(ruta_in, ruta_out,ruta_script_wsl, parallel = TRUE, verbose = TRUE)
 #' }
 #'
 #' @export
@@ -37,8 +38,12 @@
 #' @import pbapply
 #' @import R.utils
 
-Grib2ANetCDF <- function(ruta_in, ruta_out, parallel = FALSE, ncores = detectCores() - 3, verbose = TRUE) {
+Grib2ANetCDF <- function(ruta_in, ruta_out,ruta_script, parallel = FALSE, ncores = detectCores() - 3, verbose = TRUE) {
+
   tiempo_inicio <- Sys.time() # Para estimar el tiempo total
+  ruta_in<<-ruta_in
+  ruta_out<<-ruta_out
+  ruta_script<<-ruta_script
 
   if (!parallel) {
     if (verbose) cat(glue("Iniciando la conversión de {length(ruta_in)} archivo(s) de .grib2 a .nc...\n"))
@@ -48,7 +53,7 @@ Grib2ANetCDF <- function(ruta_in, ruta_out, parallel = FALSE, ncores = detectCor
 
       rutaWSL_in <- convertirRutaWindowsAWSL(ruta_in[i])
       rutaWSL_out <- convertirRutaWindowsAWSL(ruta_out[i])
-      comando <- glue("wsl bash -c '/home/inia/ICON/triangular_a_lat_lon/0125/transform_0125.sh {rutaWSL_in} {rutaWSL_out}'")
+      comando <- glue("wsl bash -c ' {rutaWSL_in} {rutaWSL_out} {ruta_script}'")
       system(comando)
 
       # Actualizar al usuario sobre el progreso sin usar pbapply
@@ -56,12 +61,16 @@ Grib2ANetCDF <- function(ruta_in, ruta_out, parallel = FALSE, ncores = detectCor
     }
     if (verbose) cat("Conversión completada.\n")
   }
-  else {
+
+  else {  #PARALELO
     if (verbose) cat(glue("Iniciando la conversión paralela de {length(ruta_in)} archivo(s) de .grib2 a .nc utilizando {ncores} núcleos...\n"))
     cl <- makeCluster(ncores, type = "SOCK")
     registerDoSNOW(cl)
 
-    clusterExport(cl, varlist = c("convertirRutaWindowsAWSL", "glue","rutas_nc"))
+    # En el modo paralelo, asegúrate de exportar correctamente la variable ruta_script
+    clusterExport(cl, varlist = c("convertirRutaWindowsAWSL", "glue"))
+
+
     clusterEvalQ(cl, {
       library(glue)
       library(R.utils)
@@ -72,7 +81,8 @@ Grib2ANetCDF <- function(ruta_in, ruta_out, parallel = FALSE, ncores = detectCor
     resultados <- pbapply::pblapply(1:length(ruta_in), function(i) {
       rutaWSL_in_i <- convertirRutaWindowsAWSL(ruta_in[i])
       rutaWSL_out_i <- convertirRutaWindowsAWSL(ruta_out[i])
-      comando_i <- glue("wsl bash -c '/home/inia/ICON/triangular_a_lat_lon/0125/transform_0125.sh {rutaWSL_in_i} {rutaWSL_out_i}'")
+
+      comando_i <- glue("wsl bash -c ' {rutaWSL_in_i} {rutaWSL_out_i} {ruta_script}'")
       system(comando_i)
       if (verbose) glue("Archivo {ruta_in[i]} procesado.\n") else NULL
     }, cl = cl)
