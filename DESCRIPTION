@@ -12,7 +12,8 @@ Imports:
     doSNOW,
     doParallel,
     R.utils,
-    foreach
+    foreach,
+	pbapply
 RoxygenNote: 7.3.0
 Suggests:
     testthat (>= 3.0.0)

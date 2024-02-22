@@ -40,10 +40,8 @@
 Grib2ANetCDF <- function(ruta_in, ruta_out, parallel = FALSE, ncores = detectCores() - 3, verbose = TRUE) {
   tiempo_inicio <- Sys.time() # Para estimar el tiempo total
 
-  if(!parallel) {
+  if (!parallel) {
     if (verbose) cat(glue("Iniciando la conversión de {length(ruta_in)} archivo(s) de .grib2 a .nc...\n"))
-
-    pbar <- pbapply::pbsetup(length(ruta_in)) # Configurar la barra de progreso
 
     for (i in seq_along(ruta_in)) {
       if (verbose) cat(glue("Procesando {ruta_in[i]}...\n"))
@@ -53,10 +51,12 @@ Grib2ANetCDF <- function(ruta_in, ruta_out, parallel = FALSE, ncores = detectCor
       comando <- glue("wsl bash -c '/home/inia/ICON/triangular_a_lat_lon/0125/transform_0125.sh {rutaWSL_in} {rutaWSL_out}'")
       system(comando)
 
-      pbapply::pbstep() # Avanzar la barra de progreso
+      # Actualizar al usuario sobre el progreso sin usar pbapply
+      if (verbose) cat(glue("Progreso: {i}/{length(ruta_in)}\n"))
     }
     if (verbose) cat("Conversión completada.\n")
-  } else {
+  }
+  else {
     if (verbose) cat(glue("Iniciando la conversión paralela de {length(ruta_in)} archivo(s) de .grib2 a .nc utilizando {ncores} núcleos...\n"))
     cl <- makeCluster(ncores, type = "SOCK")
     registerDoSNOW(cl)
