@@ -6,6 +6,7 @@
 #'
 #' @param ruta_in Vector de caracteres con las rutas de los archivos de entrada .grib2.
 #' @param ruta_out Vector de caracteres con las rutas de destino para los archivos .nc.
+#' @param ruta_script Ruta del script dentro de wsl("/home/...")
 #' @param parallel Lógico, indica si la conversión debe realizarse en paralelo. Por defecto es `FALSE`.
 #' @param ncores Entero, número de núcleos a utilizar para la conversión en paralelo. Solo aplica si `parallel` es `TRUE`. Por defecto, usa todos los núcleos disponibles menos uno.
 #' @param verbose Lógico, indica si la función debe imprimir mensajes sobre el progreso de la conversión. Por defecto es `TRUE`.
@@ -28,8 +29,8 @@
 #' \dontrun{
 #' ruta_in <- c("/path/to/input/file1.grib2", "/path/to/input/file2.grib2")
 #' ruta_out <- c("/path/to/output/file1.nc", "/path/to/output/file2.nc")
-#' ruta_script_wsl <- c("/home/inia/ICON/triangular_a_lat_lon/0125/transform_0125.sh")
-#' Grib2ANetCDF(ruta_in, ruta_out,ruta_script_wsl, parallel = TRUE, verbose = TRUE)
+#' ruta_script_wsl <- "/home/inia/ICON_0125/transform_0125.sh"
+#' Grib2ANetCDF(ruta_in, ruta_out, ruta_script, parallel = TRUE, verbose = TRUE)
 #' }
 #'
 #' @export
@@ -44,6 +45,7 @@ Grib2ANetCDF <- function(ruta_in, ruta_out,ruta_script, parallel = FALSE, ncores
   ruta_in<<-ruta_in
   ruta_out<<-ruta_out
   ruta_script<<-ruta_script
+  ruta_base_script<<- dirname(ruta_script)
 
   if (!parallel) {
     if (verbose) cat(glue("Iniciando la conversión de {length(ruta_in)} archivo(s) de .grib2 a .nc...\n"))
@@ -53,7 +55,7 @@ Grib2ANetCDF <- function(ruta_in, ruta_out,ruta_script, parallel = FALSE, ncores
 
       rutaWSL_in <- convertirRutaWindowsAWSL(ruta_in[i])
       rutaWSL_out <- convertirRutaWindowsAWSL(ruta_out[i])
-      comando <- glue("wsl bash -c ' {rutaWSL_in} {rutaWSL_out} {ruta_script}'")
+      comando <- glue("wsl bash -c ' {ruta_script} {rutaWSL_in} {rutaWSL_out} {ruta_base_script} '")
       system(comando)
 
       # Actualizar al usuario sobre el progreso sin usar pbapply
