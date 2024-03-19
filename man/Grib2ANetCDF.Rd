@@ -18,6 +18,8 @@ Grib2ANetCDF(
 
 \item{ruta_out}{Vector de caracteres con las rutas de destino para los archivos .nc.}
 
+\item{ruta_script}{Ruta del script dentro de wsl("/home/...")}
+
 \item{parallel}{Lógico, indica si la conversión debe realizarse en paralelo. Por defecto es \code{FALSE}.}
 
 \item{ncores}{Entero, número de núcleos a utilizar para la conversión en paralelo. Solo aplica si \code{parallel} es \code{TRUE}. Por defecto, usa todos los núcleos disponibles menos uno.}
@@ -48,7 +50,7 @@ larga duración.
 ruta_in <- c("/path/to/input/file1.grib2", "/path/to/input/file2.grib2")
 ruta_out <- c("/path/to/output/file1.nc", "/path/to/output/file2.nc")
 ruta_script_wsl <- c("/home/inia/ICON/triangular_a_lat_lon/0125/transform_0125.sh")
-Grib2ANetCDF(ruta_in, ruta_out,ruta_script_wsl, parallel = TRUE, verbose = TRUE)
+Grib2ANetCDF(ruta_in, ruta_out, ruta_script, parallel = TRUE, verbose = TRUE)
 }
 
 }
