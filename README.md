@@ -10,8 +10,44 @@
 - **Optimización de Procesos**: Ejecución paralela para aprovechar al máximo los recursos de hardware disponibles.
 - **Fácil de Usar**: Interfaces sencillas para usuarios de todos los niveles.
 
-## Instalación
+## Instalación WSL
 
+```bash
+wsl --install
+```
+
+Reiniciar y luego:
+
+```bash
+sudo apt update && sudo apt upgrade
+```
+
+```bash
+apt-get install cdo
+```
+
+instalar dependencias necesarias:
+
+```bash
+sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
+sudo apt-get update
+sudo apt-get install libgdal-dev libgeos-dev libproj-dev 
+sudo apt-get install libnetcdf-dev libhdf5-dev 
+sudo apt install gdal-bin
+
+```
+debes copiar el contenido de  'ICON_0125.rar" dentro de una carpeta en wsl (home/...)
+Para descargar el archivo `ICON_0125.rar`, haz clic [aquí](https://github.com/reneignacio/grib2nc/raw/main/ICON_0125.rar).
+
+ejecutar chmod +x a archivo en consola, para dar permisos:
+ejemplo:
+```bash
+chmod +x /home/inia/ICON_0125/transform_0125.sh
+```
+
+
+
+## Instalación Paquete R
 Puedes instalar `grib2nc` desde GitHub usando `devtools`:
 
 ```r
