@@ -82,14 +82,3 @@ Para extraer archivos .bz2, ya sea de forma secuencial o paralela:
 extraerBZ2(c("/ruta/a/tu/archivo1.bz2", "/ruta/a/tu/archivo2.bz2"), parallel = TRUE, ncores = 2)
 ```
 
-## Contribuciones
-
-Las contribuciones a `grib2nc` son bienvenidas. Si deseas contribuir, por favor haz un fork del repositorio y envía un pull request.
-
-## Licencia
-
-Este paquete está bajo la licencia MIT. Ver el archivo LICENSE para más detalles.
-
-## Contacto
-
-Si tienes preguntas o comentarios sobre `grib2nc`, por favor, no dudes en [abrir un issue](https://github.com/reneignacio/grib2nc/issues) en nuestro repositorio de GitHub.
