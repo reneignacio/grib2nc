@@ -1,7 +1,7 @@
 
 # grib2nc
 
-`grib2nc` es una herramienta diseñada para facilitar la utilización y transformación de datos meteorológicos del modelo DWD ICON, los cuales están disponibles en formato grib2. Este paquete permite convertir archivos grib2 a formato NetCDF (.nc) para su fácil uso en análisis y aplicaciones de ciencia de datos, así como extraer archivos .bz2, tanto de forma secuencial como paralela, optimizando el manejo de grandes volúmenes de datos.
+`grib2nc` es una herramienta diseñada para facilitar la utilización y transformación de datos meteorológicos del modelo DWD ICON, los cuales están disponibles en formato grib2. Este paquete permite convertir archivos grib2 a formato NetCDF (.nc) para su fácil uso, así como extraer archivos .bz2, tanto de forma secuencial como paralela, optimizando el manejo de grandes volúmenes de datos.
 
 ## Características
 
