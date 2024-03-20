@@ -37,7 +37,7 @@ sudo apt install gdal-bin
 
 ```
 debes copiar el contenido de  'ICON_0125.rar" dentro de una carpeta en wsl (home/...)
-Para descargar el archivo `ICON_0125.rar`, haz clic [aquí](https://github.com/reneignacio/grib2nc/raw/main/ICON_0125.rar).
+Para descargar el archivo `ICON_0125.rar`, haz clic [aquí](https://github.com/reneignacio/grib2nc/raw/master/ICON_0125.rar).
 
 ejecutar chmod +x a archivo en consola, para dar permisos:
 ejemplo:
