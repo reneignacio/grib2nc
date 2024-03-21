@@ -39,10 +39,10 @@ sudo apt-get install libgdal-dev libgeos-dev libproj-dev  libnetcdf-dev libhdf5-
 debes copiar el contenido de  'ICON_0125.rar" dentro de una carpeta en wsl (home/...)
 Para descargar el archivo `ICON_0125.rar`, haz clic [aquí](https://github.com/reneignacio/grib2nc/raw/master/ICON_0125.rar).
 
-ejecutar chmod +x a archivo en consola, para dar permisos 
+ejecutar _chmod +x_ al archivo en consola, para dar permisos 
 ejemplo:
 ```bash
-chmod +x /home/inia/ICON_0125/transform_0125.sh
+chmod +x /home/user/ICON_0125/transform_0125.sh
 ```
 
 
