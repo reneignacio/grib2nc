@@ -27,16 +27,14 @@ sudo apt-get install cdo
 ```
 
 instalar dependencias necesarias:
-
 ```bash
 sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
-```bash
 ```
+```bash
 sudo apt-get update
 ```
 ```bash
 sudo apt-get install libgdal-dev libgeos-dev libproj-dev  libnetcdf-dev libhdf5-dev gdal-bin -y
-
 ```
 debes copiar el contenido de  'ICON_0125.rar" dentro de una carpeta en wsl (home/...)
 Para descargar el archivo `ICON_0125.rar`, haz clic [aquí](https://github.com/reneignacio/grib2nc/raw/master/ICON_0125.rar).
