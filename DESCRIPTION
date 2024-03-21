@@ -13,7 +13,8 @@ Imports:
     doParallel,
     R.utils,
     foreach,
-	pbapply
+	pbapply,
+	stringdist
 RoxygenNote: 7.3.0
 Suggests:
     testthat (>= 3.0.0)
