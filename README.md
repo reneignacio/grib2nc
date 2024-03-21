@@ -30,10 +30,12 @@ instalar dependencias necesarias:
 
 ```bash
 sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
+```bash
+```
 sudo apt-get update
-sudo apt-get install libgdal-dev libgeos-dev libproj-dev 
-sudo apt-get install libnetcdf-dev libhdf5-dev 
-sudo apt-get install gdal-bin
+```
+```bash
+sudo apt-get install libgdal-dev libgeos-dev libproj-dev  libnetcdf-dev libhdf5-dev gdal-bin -y
 
 ```
 debes copiar el contenido de  'ICON_0125.rar" dentro de una carpeta en wsl (home/...)
