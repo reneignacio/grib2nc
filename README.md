@@ -23,7 +23,7 @@ sudo apt update && sudo apt upgrade
 ```
 
 ```bash
-apt-get install cdo
+sudo apt-get install cdo
 ```
 
 instalar dependencias necesarias:
